@@ -18,7 +18,7 @@ set(x11 false)
 set(win32 false)
 set(osx false)
 if(VCPKG_TARGET_IS_LINUX)
-    set(OPTIONS -Dwayland-backend=false) # CI missing at least wayland-protocols
+    set(OPTIONS -Dwayland-backend=true) # CI missing at least wayland-protocols
     set(x11 true)
     # Enable the wayland gdk backend (only when building on Unix except for macOS)
 elseif(VCPKG_TARGET_IS_WINDOWS)
