@@ -3,7 +3,7 @@ vcpkg_from_gitlab(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO GNOME/gtk
     REF ${VERSION}
-    SHA512 f219ddc6f46061f516f99a3845f344269d51d7fc2554773f7d4cee7833c5be26ce809262466d18c2804559834eb595f0d802b6fc80d77b7e8bf046e4c1293d64
+    SHA512 36f04c91d2e374db9fce0e3e16d1645dac52dcab35b0ad5cdf92cfd2a7f3d67c3cbee630077c780b0dab901df619b32e17c37c00b7d49c98be011bec21e8d840
     HEAD_REF master # branch name
     PATCHES
         0001-build.patch
@@ -58,7 +58,6 @@ vcpkg_configure_meson(
         -Dbuild-tests=false
         -Dgtk_doc=false
         -Dman-pages=false
-        -Dmedia-ffmpeg=disabled     # Build the ffmpeg media backend
         -Dmedia-gstreamer=disabled  # Build the gstreamer media backend
         -Dprint-cups=disabled       # Build the cups print backend
         -Dvulkan=disabled           # Enable support for the Vulkan graphics API
@@ -93,6 +92,7 @@ vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
 set(TOOL_NAMES gtk4-builder-tool
                gtk4-encode-symbolic-svg
                gtk4-query-settings
+               gtk4-rendernode-tool
                gtk4-update-icon-cache)
 if(VCPKG_TARGET_IS_LINUX)
     list(APPEND TOOL_NAMES gtk4-launch)
