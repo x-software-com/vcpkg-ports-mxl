@@ -1,0 +1,17 @@
+{
+  "name": "mxl-mesa",
+  "version": "24.0.6",
+  "port-version": 1,
+  "description": "Mesa - The 3D Graphics Library",
+  "homepage": "https://gitlab.freedesktop.org/mesa/mesa",
+  "license": "MIT",
+  "supports": "linux",
+  "dependencies": [
+    "libdrm",
+    "egl-registry",
+    {
+      "name": "vcpkg-tool-meson",
+      "host": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "libdrm",
+  "version": "2.4.120",
+  "port-version": 1,
+  "description": "This is libdrm, a userspace library for accessing the DRM, direct rendering manager, on Linux, BSD and other operating systems that support the ioctl interface.",
+  "homepage": "https://gitlab.freedesktop.org/mesa/drm",
+  "license": "MIT",
+  "supports": "linux",
+  "dependencies": [
+    {
+      "name": "vcpkg-tool-meson",
+      "host": true
+    }
+  ]
+}

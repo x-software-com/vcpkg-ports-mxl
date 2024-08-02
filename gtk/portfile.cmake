@@ -9,6 +9,9 @@ vcpkg_from_gitlab(
         0001-build.patch
 )
 
+# Add the path to the wayland-scanner binary
+vcpkg_add_to_path(PREPEND "${CURRENT_INSTALLED_DIR}/tools/wayland")
+
 vcpkg_find_acquire_program(PKGCONFIG)
 get_filename_component(PKGCONFIG_DIR "${PKGCONFIG}" DIRECTORY )
 vcpkg_add_to_path("${PKGCONFIG_DIR}") # Post install script runs pkg-config so it needs to be on PATH
