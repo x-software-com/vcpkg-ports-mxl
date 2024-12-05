@@ -6,7 +6,7 @@ vcpkg_from_gitlab(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO GNOME/gtk
     REF ${VERSION}
-    SHA512 36f04c91d2e374db9fce0e3e16d1645dac52dcab35b0ad5cdf92cfd2a7f3d67c3cbee630077c780b0dab901df619b32e17c37c00b7d49c98be011bec21e8d840
+    SHA512 367e84a0b628a99216e4f5bd1692533d6c0460fecc08d243f408c47b888e3748298e684ef8217e8c319b0c79d99ddb299f00f9a6af02e96f69570161beb6e570
     HEAD_REF master # branch name
     PATCHES
         0001-build.patch
@@ -95,7 +95,8 @@ set(TOOL_NAMES gtk4-builder-tool
                gtk4-path-tool
                gtk4-query-settings
                gtk4-rendernode-tool
-               gtk4-update-icon-cache)
+               gtk4-update-icon-cache
+               gtk4-image-tool)
 if(VCPKG_TARGET_IS_LINUX)
     list(APPEND TOOL_NAMES gtk4-launch)
 endif()
