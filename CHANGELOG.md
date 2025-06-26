@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## v2025.3.19 - 2025-06-26
+#### Bug Fixes
+- fix build on nixos - (316f1fc) - marcbull
+#### Build system
+- do not use locked cargo install - (0d19826) - marcbull
+#### Features
+- update librsvg to vckpkg version 2025.01.13 - (6c9592c) - marcbull
+#### Miscellaneous Chores
+- upgrade ports to vcpkg 2025.03.19 - (f5dce44) - acpiccolo
+- upgrade ports to 2024.11.16 and gtk to 4.16.7 - (3d0ce91) - marcbull
+
+- - -
+
 ## v2024.10.21 - 2024-12-05
 #### Bug Fixes
 - fix git repository in liblzma port - (8fb017a) - marcbull
