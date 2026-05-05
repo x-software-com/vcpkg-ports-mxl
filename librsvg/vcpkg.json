@@ -1,7 +1,6 @@
 {
   "name": "librsvg",
-  "version": "2.40.21",
-  "port-version": 2,
+  "version": "2.62.1",
   "description": "A small library to render Scalable Vector Graphics (SVG)",
   "homepage": "https://gitlab.gnome.org/GNOME/librsvg",
   "license": "LGPL-2.0-or-later",
@@ -10,14 +9,13 @@
     "fontconfig",
     "gdk-pixbuf",
     "glib",
-    "libcroco",
     {
-      "name": "libxml2",
-      "default-features": false
+      "name": "glib",
+      "host": true
     },
     "pango",
     {
-      "name": "vcpkg-cmake",
+      "name": "vcpkg-tool-meson",
       "host": true
     }
   ]

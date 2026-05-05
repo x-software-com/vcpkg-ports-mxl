@@ -1,41 +1,36 @@
-# port update requires rust/cargo
 
-string(REGEX REPLACE "^([0-9]*[.][0-9]*)[.].*" "\\1" MAJOR_MINOR "${VERSION}")
-vcpkg_download_distfile(ARCHIVE
-    URLS
-        "https://download.gnome.org/sources/librsvg/${MAJOR_MINOR}/librsvg-${VERSION}.tar.xz"
-        "https://www.mirrorservice.org/sites/ftp.gnome.org/pub/GNOME/sources/librsvg/${MAJOR_MINOR}/librsvg-${VERSION}.tar.xz"
-    FILENAME "librsvg-${VERSION}.tar.xz"
-    SHA512 db0563d8e0edaae642a6b2bcd239cf54191495058ac8c7ff614ebaf88c0e30bd58dbcd41f58d82a9d5ed200ced45fc5bae22f2ed3cf3826e9348a497009e1280
+# NOTE: Using GitHub mirror to avoid Anubis check failure on GNOME GitLab
+# https://github.com/microsoft/vcpkg/issues/48350
+vcpkg_from_github(
+    OUT_SOURCE_PATH SOURCE_PATH
+    REPO GNOME/librsvg
+    REF refs/tags/${VERSION}
+    SHA512 874772963c5f03cfeddae9f4e7394da52fda2c7fc3d91e2b8bc0c3d61d4b0771ccc68b12745e957834e83229017d11cc7de9df1dece105305328fa822a623bc7
+    HEAD_REF master
 )
 
-vcpkg_extract_source_archive(
-    SOURCE_PATH
-    ARCHIVE "${ARCHIVE}"
-    PATCHES
-        fix-libxml2-2.13.5.patch
-)
-
-file(COPY "${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt" "${CMAKE_CURRENT_LIST_DIR}/config.h.linux" DESTINATION "${SOURCE_PATH}")
-
-vcpkg_find_acquire_program(PKGCONFIG)
-vcpkg_cmake_configure(
+vcpkg_configure_meson(
     SOURCE_PATH "${SOURCE_PATH}"
+    OPTIONS
+        -Ddocs=disabled
+        -Drsvg-convert=disabled
+        -Dintrospection=disabled
+        -Dpixbuf-loader=enabled
+        -Dtests=false
+        -Dvala=disabled
+    ADDITIONAL_BINARIES
+        glib-mkenums='${CURRENT_HOST_INSTALLED_DIR}/tools/glib/glib-mkenums'
+        glib-genmarshal='${CURRENT_HOST_INSTALLED_DIR}/tools/glib/glib-genmarshal'
 )
 
-vcpkg_cmake_install()
+vcpkg_install_meson()
+
+file(REMOVE "${CURRENT_PACKAGES_DIR}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache")
+file(REMOVE "${CURRENT_PACKAGES_DIR}/debug/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache")
+
 vcpkg_copy_pdbs()
 vcpkg_fixup_pkgconfig()
 
-if(VCPKG_TARGET_IS_WINDOWS AND NOT VCPKG_TARGET_IS_MINGW)
-    file(GLOB_RECURSE pc_files "${CURRENT_PACKAGES_DIR}/*.pc")
-    foreach(pc_file IN LISTS pc_files)
-        vcpkg_replace_string("${pc_file}" " -lm" "")
-    endforeach()
-endif()
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
-
-file(COPY "${CURRENT_PORT_DIR}/unofficial-librsvg-config.cmake" DESTINATION "${CURRENT_PACKAGES_DIR}/share/unofficial-librsvg")
-file(COPY "${CURRENT_PORT_DIR}/usage" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
-vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING")
+vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/COPYING.LIB")
